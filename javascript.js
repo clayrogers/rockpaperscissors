@@ -1,6 +1,12 @@
 // ALGORITHM for rock, paper, scissors
 
 // computer randomly chooses rock, paper, or scissors
+function getComputerChoice() {
+    let computerOptions = ['Rock', 'Paper', 'Scissors'];
+    let randomChoice = Math.floor(Math.random() * 3);
+    return computerOptions[randomChoice];
+}
+
 // player inputs rock, paper, or scissors
 // choices are compared between player and computer
 // rock beats scissors
