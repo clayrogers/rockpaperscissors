@@ -1,1 +1,1 @@
-A javascript rock, paper, scissors game played in the browser console.
+A javascript rock, paper, scissors game to be played in a browser.
