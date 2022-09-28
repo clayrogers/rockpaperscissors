@@ -11,48 +11,52 @@ function getComputerChoice() {
 // rock beats scissors
 // paper beats rock
 // scissors beats paper
-// output a message saying what player chose and what computer chose
 // output a message that says if player wins, loses, or ties
-function playRound(playerSelection, computerSelection) {
-    playerLower = playerSelection.toLowerCase();
-    computerLower = computerSelection.toLowerCase();
-    if (playerLower === 'rock' && computerLower === 'scissors' || playerLower === 'paper' && computerLower === 'rock' || playerLower === 'scissors' && computerLower === 'paper') {
-        return `You Win! ${playerSelection} beats ${computerSelection}!`;
-    } else if (playerLower == computerLower) {
-        return `It's a Tie! You both chose ${computerSelection}!`;
-    } else {
-        return `You Lose! ${playerSelection} loses to ${computerSelection}!`;
-    }
-}
-
-// player inputs rock, paper, or scissors
 // play 5 times total (best of 5)
 // keep track of wins, losses, ties for player and computer
-// round wins are compared between player and computer for winner
-function game() {
-    let playerWins = 0
-    let playerLosses = 0
-    let playerTies = 0
-    for (let rounds = 0; rounds < 5; rounds++) {
-        const playerSelection = prompt('Choose Rock, Paper, or Scissors.');
-        const computerSelection = getComputerChoice();
-        let results = playRound(playerSelection, computerSelection);
-        if (results === `You Win! ${playerSelection} beats ${computerSelection}!`) {
-            playerWins += 1;
-        } else if (results = `You Lose! ${playerSelection} loses to ${computerSelection}!`) {
-            playerLosses += 1;
-        } else {
-            playerTies += 1;
-        }
-        console.log(results);
+
+function playRound(playerSelection) {
+    if (rounds === 5) {
+        rock.removeEventListener('click', clickRock());
+        paper.removeEventListener('click', clickPaper());
+        scissors.removeEventListener('click', clickScissors());
     };
-    if (playerWins > playerLosses) {
-        return `You beat the computer in a best of 5! You won ${playerWins} times, lost ${playerLosses} times, and tied ${playerTies} times!`;
-    } else if (playerWins < playerLosses) {
-        return `You lost to the computer in a best of 5! You won ${playerWins} times, lost ${playerLosses} times, and tied ${playerTies} times!`;
+    playerLower = playerSelection.toLowerCase();
+    computerSelection = getComputerChoice();
+    computerLower = computerSelection.toLowerCase();
+    if (playerLower === 'rock' && computerLower === 'scissors' || playerLower === 'paper' && computerLower === 'rock' || playerLower === 'scissors' && computerLower === 'paper') {
+        message.textContent = `You Win! ${playerSelection} beats ${computerSelection}!`;
+        results = `You Win! ${playerSelection} beats ${computerSelection}!`;
+    } else if (playerLower == computerLower) {
+        message.textContent = `It's a Tie! You both chose ${computerSelection}!`;
+        results = `It's a Tie! You both chose ${computerSelection}!`;
     } else {
-        return `You tied the computer in a best of 5! You won ${playerWins} times, lost ${playerLosses} times, and tied ${playerTies} times!`;
-    }
+        message.textContent = `You Lose! ${playerSelection} loses to ${computerSelection}!`;
+        results = `You Lose! ${playerSelection} loses to ${computerSelection}!`;
+    };
+    if (results.startsWith('You Win') == true) {
+        playerWins += 1;
+    } else if (results.startsWith('You Lose') == true) {
+        playerLosses += 1;
+    } else {
+        playerTies += 1;
+    };
+    rounds++;
+    final.textContent = `Score: Wins ${playerWins}, Losses ${playerLosses}, Ties ${playerTies}`;
+    console.log(rounds);
 }
 
-console.log(game())
+const message = document.querySelector('#results');
+const final = document.querySelector('#final');
+
+let rounds = 0
+let playerWins = 0
+let playerLosses = 0
+let playerTies = 0
+
+let rock = document.querySelector('#rock')
+rock.addEventListener('click', function clickRock() {(playRound('Rock'))});
+let paper = document.querySelector('#paper')
+paper.addEventListener('click', function clickPaper() {(playRound('Paper'))});
+let scissors = document.querySelector('#scissors')
+scissors.addEventListener('click', function clickScissors() {(playRound('Scissors'))});
